@@ -1,0 +1,16 @@
+.cache
+.coverage
+.env
+.pytest_cache/
+.vs
+.vscode
+__pycache__/
+dist/
+build/
+Debug
+Release
+Testing
+venv/
+*~
+*.patch
+*.pyc
