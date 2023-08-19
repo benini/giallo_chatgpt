@@ -28,7 +28,7 @@ Il tuo compito è inventare un racconto di circa 800 parole per un gioco investi
 Viene commesso un crimine e ci sono 3 individui sospettati.
 La storia deve essere misteriosa, interessante, non banale e contenere diversi indizi.
 I sospettatti devono essere tutti maggiorenni, leggermente più donne che uomini.
-Fornisci la risposta nel seguente formato JSON:
+Crea un valido oggetto JSON seguendo questo schema:
 {
 "img_scene": "descrizione dettagliata del luogo",
 "prologue": "Descrivi con una singola frase la scena del crimine.",
@@ -42,7 +42,7 @@ Fornisci la risposta nel seguente formato JSON:
 "culprit": { "name": "nome cognome", "clue": "svela l'indizio che lo incastra come colpevole", "motive": "il motivo del crimine" }
 }
 
-Non fornire mai testo aggiuntivo.
+Evita qualunque testo oltre all oggetto JSON:
 """,
         },
     ],
