@@ -67,7 +67,7 @@ def index():
 
     # A random crime_id is generated once a day.
     # crime_id = generate_crime_id(datetime.now().strftime("%Y%m%d"))
-    crime_id = random.choice(crime_pool(10))
+    crime_id = random.choice(crime_pool(20))
     flask.session["crime_id"] = crime_id
     flask.session["language"] = language
     session_id = str(uuid.uuid4())
@@ -170,6 +170,7 @@ def suspect_interrogation(nr):
         crime["suspects"][nr - 1]["name"],
         crime["suspects"][nr - 1]["description"],
         crime["suspects_priv"][nr - 1]["image"],
+        crime["culprit"]["name"],
         crime["culprit"]["clue"],
         crime["culprit"]["motive"],
     )
