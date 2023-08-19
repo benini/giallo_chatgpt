@@ -27,6 +27,7 @@ import uuid
 import flask
 
 
+AI.set_cache(dict())
 # AI.set_cache("redis://localhost:6379")
 # AI.set_cache("dynamodb.giallo_chatgpt", endpoint_url="http://localhost:8000", aws_access_key_id='dummy', aws_secret_access_key='dummy')
 # AI.set_cache("dynamodb.giallo_chatgpt")

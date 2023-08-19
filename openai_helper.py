@@ -51,7 +51,8 @@ class Cache:
                 self.logs = self.cache
         elif isinstance(conn, dict):
             self.cache = conn
-            self.logs = []
+            self.logs = self
+            self.logs_ = []
         else:
             raise ValueError("Unsupported cache backend")
 
@@ -77,10 +78,11 @@ class Cache:
 
         return wrapper
 
+    def log_append(self, log_message):
+        self.logs_.append(log_message)
+
     def log_dump(self):
-        if isinstance(self.logs, list):
-            return {"_log_data": self.logs}
-        return self.logs.log_dump()
+        return {"log_data": self.logs_}
 
 
 class RedisCacheImpl:
@@ -188,7 +190,6 @@ class AI:
     def set_cache(conn, **kwargs):
         new_cache = Cache(conn, **kwargs)
         AI.cache.cache = new_cache.cache
-        AI.cache.logs = new_cache.logs
 
     @staticmethod
     def logs():
