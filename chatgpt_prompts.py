@@ -18,8 +18,9 @@ N_SUSPECTS = 3
 prompts = {}
 
 prompts["story"] = {
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-4-1106-preview",
     "temperature": 0.7,
+    "response_format": { "type": "json_object" },
     "messages": [
         {
             "role": "user",
@@ -50,10 +51,10 @@ Evita qualunque testo oltre all oggetto JSON:
 
 
 prompts["suspect"] = {
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-4-1106-preview",
     "temperature": 1.0,
     "stream": True,
-    "max_tokens": 128,
+    "max_tokens": 256,
     "messages": [
         {
             "role": "system",
@@ -92,7 +93,7 @@ prompts["img_suspect"] = {
 
 
 prompts["lang_detect"] = {
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-3.5-turbo-1106",
     "temperature": 1.0,
     "messages": [
         {
@@ -111,7 +112,7 @@ Non fornire mai testo aggiuntivo.
 }
 
 prompts["lang_translate"] = {
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-3.5-turbo-1106",
     "temperature": 1.0,
     "messages": [
         {
