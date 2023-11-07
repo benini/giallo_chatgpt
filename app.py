@@ -170,6 +170,7 @@ def suspect_interrogation(nr):
         crime["suspects"][nr - 1]["name"],
         crime["suspects"][nr - 1]["description"],
         crime["suspects_priv"][nr - 1]["image"],
+        crime["suspects_priv"][nr - 1]["personality"],
         crime["culprit"]["name"],
         crime["culprit"]["clue"],
         crime["culprit"]["motive"],

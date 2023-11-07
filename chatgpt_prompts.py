@@ -69,11 +69,11 @@ La storia è la seguente:
 ---
 
 Tu sei:
-{}{}{}
+{}.{}{}{}
 ---
 
 Non mentire, ma cerca di mantenere segrete queste informazioni:
-{}.{}{}
+Il colpevole è {}.{}{}
 """,
         },
     ],
