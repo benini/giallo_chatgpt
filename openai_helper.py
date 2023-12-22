@@ -175,18 +175,16 @@ class DynamoDBCacheImpl:
         return {"log_data": [decoder.deserialize(item["data"]) for item in log_items]}
 
 
-client = OpenAI()
+try:
+    client = OpenAI()
+except Exception:
+    response = boto3.client("ssm").get_parameter(
+        Name="OPENAI_API_KEY", WithDecryption=True
+    )
+    client = OpenAI(api_key=response["Parameter"]["Value"])
 
 class AI:
     cache = Cache({})
-    if client.api_key is None:
-        try:
-            response = boto3.client("ssm").get_parameter(
-                Name="OPENAI_API_KEY", WithDecryption=True
-            )
-            client.api_key = response["Parameter"]["Value"]
-        except Exception:
-            pass
 
     @staticmethod
     def set_cache(conn, **kwargs):

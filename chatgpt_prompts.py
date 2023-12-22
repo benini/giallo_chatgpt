@@ -81,7 +81,7 @@ Il colpevole è {}.{}{}
 
 
 prompts["img_scene"] = {
-    "prompt": "Pencil and watercolor drawing of {}. Make the scene look mysterious and ominous.",
+    "prompt": "Pencil and watercolor drawing of {}. The scene is for a detective game, make it look mysterious and ominous.",
     "size": "256x256",
 }
 
