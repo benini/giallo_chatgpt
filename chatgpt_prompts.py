@@ -27,13 +27,13 @@ prompts["story"] = {
             "content": """
 Il tuo compito è inventare un racconto di circa 800 parole per un gioco investigativo.
 Viene commesso un crimine e ci sono 3 individui sospettati.
-La storia deve essere misteriosa, interessante, non banale e contenere diversi indizi.
+La storia deve essere misteriosa, interessante, non banale e contenere indizi nascosti.
 I sospettatti devono essere tutti maggiorenni, leggermente più donne che uomini.
 Crea un valido oggetto JSON seguendo questo schema:
 {
 "img_scene": "descrizione dettagliata del luogo",
 "prologue": "Descrivi con una singola frase la scena del crimine.",
-"story":  "Racconta la storia. Non svelare qui gli indizi e il colpevole.",
+"story":  "Racconta la storia. Non svelare qui il colpevole.",
 "suspects": [
   { "name": "nome cognome", "description": "descrizione del sospetto" },
   ..., ]
@@ -89,6 +89,13 @@ prompts["img_scene"] = {
 prompts["img_suspect"] = {
     "prompt": "Portrait photo. {}",
     "size": "256x256",
+}
+
+
+prompts["tts"] = {
+  "model": "tts-1",
+  "voice": "onyx",
+  "input": "{}"
 }
 
 

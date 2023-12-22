@@ -50,11 +50,19 @@
                 {% if story %}
                 <img class="w-100" src="{{ url_for('get_image') }}" />
                 <h2 class="mt-3">Il crimine</h2>
-                {% for paragraph in story %}
                 <p class="text-start">
-                    {{ paragraph }}
+                    {{ prologue }}
                 </p>
-                {% endfor %}
+                <button class="btn btn-primary" onclick="playAudio()">LEGGI</button>
+                <script>
+                    function playAudio() {
+                        var audio = new Audio('/read_story');
+                        audio.play();
+                    }
+                    </script>
+                <p class="text-start">
+                    {{ story }}
+                </p>
                 <a class="btn btn-success rounded-pill w-100" href="suspect1">Interrogatorio</a>
 
                 {% elif suspect_prog is defined %}

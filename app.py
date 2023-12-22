@@ -99,6 +99,16 @@ def get_image(nr=None):
     response.headers.set("Content-Type", "image/png")
     return response
 
+@app.route("/read_story")
+def get_audio():
+    crime_id, _, _ = valid_session(None)
+    if not crime_id:
+        return flask.abort(400)
+
+    crime = generate_story(crime_id)
+    audio_data = AI.send_message(prompts["tts"], crime_id, input=crime["story"])
+    return flask.Response(audio_data, mimetype="audio/mp3")
+
 
 @app.route("/story")
 @app.route("/suspect<int:nr>")
@@ -111,7 +121,10 @@ def story(nr=None):
     crime = generate_story(crime_id)
     route = flask.request.url[len(flask.request.url_root) :]
     if route == "story":
-        kwargs = {"story": [crime["prologue"], crime["story"]]}
+        kwargs = {
+            "prologue": crime["prologue"],
+            "story": crime["story"]
+        }
     elif route.startswith("suspect"):
         kwargs = {
             "suspect_prog": nr,
