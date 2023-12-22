@@ -18,7 +18,7 @@ from datetime import datetime
 from functools import wraps as fn_wraps
 import json
 import requests
-import openai
+from openai import OpenAI
 import boto3
 import redis
 
@@ -175,14 +175,16 @@ class DynamoDBCacheImpl:
         return {"log_data": [decoder.deserialize(item["data"]) for item in log_items]}
 
 
+client = OpenAI()
+
 class AI:
     cache = Cache({})
-    if openai.api_key is None:
+    if client.api_key is None:
         try:
             response = boto3.client("ssm").get_parameter(
                 Name="OPENAI_API_KEY", WithDecryption=True
             )
-            openai.api_key = response["Parameter"]["Value"]
+            client.api_key = response["Parameter"]["Value"]
         except Exception:
             pass
 
@@ -198,9 +200,9 @@ class AI:
     @staticmethod
     @cache
     def stream_message(params):
-        response = openai.ChatCompletion.create(**params)
+        response = client.chat.completions.create(**params)
         for chunk in response:
-            content = chunk['choices'][0]['delta'].get('content')
+            content = chunk.choices[0].delta.content
             if content is not None:
                 yield content
 
@@ -228,26 +230,26 @@ class AI:
     @cache
     def _openai_send_message(params, cache_prefix):
         response = AI._openai_send_request(params, cache_prefix)
-        if "data" in response:
-            url = response["data"][0]["url"]
+        if getattr(response, "data", None) is not None:
+            url = response.data[0].url
             data = requests.get(url).content
             return data
 
-        if "message" in response["choices"][0]:
-            return response["choices"][0]["message"]["content"]
+        if getattr(response, "content", None) is not None:
+            return response.content
 
-        return response["choices"][0]["text"]
+        return response.choices[0].message.content
 
     @staticmethod
     @cache
     def _openai_send_request(params, cache_prefix):
         try:
             if "messages" in params:
-                return openai.ChatCompletion.create(**params)
-            if "engine" in params:
-                return openai.Completion.create(**params)
+                return client.chat.completions.create(**params)
+            if "voice" in params:
+                return client.audio.speech.create(**params)
 
-            return openai.Image.create(**params)
+            return client.images.generate(**params)
         except Exception as e:
             AI._openai_log_error(
                 timestamp=datetime.now(),
